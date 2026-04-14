@@ -475,11 +475,22 @@
     .hero-text .org-name { font-size: 11px; letter-spacing: 6px; }
     .hero-text h1 { font-size: 56px; }
     .hero-text .tagline { font-size: 10px; letter-spacing: 4px; }
-    .school-logo { width: 100px !important; top: 14px !important; left: 14px !important; }
-    a.qr-badge { top: 14px !important; right: 14px !important; padding: 10px 12px 8px !important; }
+    .school-logo { width: 100px !important; top: 20px !important; left: 20px !important; }
+    a.qr-badge {
+      top: 20px !important;
+      right: 20px !important;
+      padding: 0 !important;
+      background: transparent !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
+    a.qr-badge::after { display: none !important; }
     .qr-badge img { width: 75px !important; height: 75px !important; }
     .qr-badge .qr-cta { font-size: 14px !important; }
-    .qr-badge .qr-sub { font-size: 7px !important; }
+    .qr-badge .qr-sub { display: none !important; }
     .event-info { grid-template-columns: 1fr; padding: 10px 20px 16px; }
     .info-block { padding: 14px 10px; text-align: left; display: flex; align-items: baseline; gap: 12px; }
     .info-block:not(:last-child)::after { display: none; }
@@ -504,7 +515,8 @@
 
   @media (max-width: 380px) {
     .hero-text h1 { font-size: 44px; }
-    .school-logo { width: 80px !important; }
+    .school-logo { width: 80px !important; top: 16px !important; left: 16px !important; }
+    a.qr-badge { top: 16px !important; right: 16px !important; }
     .qr-badge img { width: 60px !important; height: 60px !important; }
     .qr-badge .qr-cta { font-size: 12px !important; }
     .info-value { font-size: 24px; }
