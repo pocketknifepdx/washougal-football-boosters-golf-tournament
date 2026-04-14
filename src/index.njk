@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ event.org_name }} {{ event.title }}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --orange: #FF6600;
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --off-white: #f0f0f0;
+    --gold: #C9A84C;
+    --silver: #A8A8A8;
+    --bronze: #CD7F32;
+    --platinum: #E5E4E2;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .flyer {
+    width: 850px;
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .flyer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-conic-gradient(rgba(255,255,255,0.012) 0% 25%, transparent 0% 50%) 0 0 / 3px 3px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .content { position: relative; z-index: 2; }
+
+  .hero-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .hero-image {
+    width: 100%;
+    display: block;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom,
+      rgba(0,0,0,0.3) 0%,
+      rgba(0,0,0,0) 30%,
+      rgba(0,0,0,0) 50%,
+      rgba(10,10,10,0.7) 75%,
+      rgba(10,10,10,1) 100%
+    );
+    z-index: 2;
+  }
+
+  .hero-text {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    z-index: 3;
+    text-align: center;
+    padding: 0 40px 30px;
+  }
+
+  .hero-text .org-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    color: var(--off-white);
+    margin-bottom: 8px;
+    opacity: 0.9;
+  }
+
+  .hero-text h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 90px;
+    line-height: 0.88;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--orange);
+    text-shadow: 0 0 60px rgba(255,102,0,0.4), 0 4px 12px rgba(0,0,0,0.8);
+  }
+
+  .hero-text .tagline {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 12px;
+  }
+
+  .school-logo {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    z-index: 10;
+    width: 150px;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6));
+  }
+
+  a.qr-badge {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 10;
+    text-align: center;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,102,0,0.35);
+    border-radius: 10px;
+    padding: 16px 18px 14px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 20px rgba(255,102,0,0.1);
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  a.qr-badge:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+
+  a.qr-badge::after {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,102,0,0.5);
+    animation: pulse-border 2s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes pulse-border {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.02); }
+  }
+
+  .qr-badge img {
+    width: 100px;
+    height: 100px;
+    border-radius: 6px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .qr-badge .qr-cta {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-top: 10px;
+    line-height: 1.1;
+  }
+
+  .qr-badge .qr-cta span { color: var(--orange); }
+
+  .qr-badge .qr-sub {
+    font-family: 'Oswald', sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-top: 5px;
+  }
+
+  .hero-accent {
+    height: 4px;
+    background: linear-gradient(to right, transparent, var(--orange), transparent);
+  }
+
+  .event-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    padding: 10px 40px 20px;
+  }
+
+  .info-block {
+    text-align: center;
+    padding: 25px 15px;
+    position: relative;
+  }
+
+  .info-block:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20%; height: 60%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(255,102,0,0.3), transparent);
+  }
+
+  .info-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+
+  .info-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .info-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 4px;
+  }
+
+  .divider {
+    height: 1px;
+    margin: 0 40px;
+    background: linear-gradient(to right, transparent, rgba(255,102,0,0.35), transparent);
+  }
+
+  .format-section {
+    padding: 28px 40px;
+    text-align: center;
+  }
+
+  .format-section h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px;
+  }
+
+  .format-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 28px;
+  }
+
+  .format-item {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.65);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .format-item::before {
+    content: '';
+    width: 5px; height: 5px;
+    background: var(--orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .pricing-section {
+    padding: 30px 40px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .price-card {
+    text-align: center;
+    padding: 28px 55px;
+    background: linear-gradient(135deg, rgba(255,102,0,0.08) 0%, rgba(255,102,0,0.02) 100%);
+    border: 1px solid rgba(255,102,0,0.2);
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .price-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--orange);
+  }
+
+  .price-type {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+
+  .price-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .price-per {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 4px;
+  }
+
+  .sponsor-section {
+    padding: 30px 40px;
+    text-align: center;
+  }
+
+  .sponsor-section h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--white);
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+  }
+
+  .sponsor-tiers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .tier {
+    padding: 20px 10px;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tier::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .tier-bronze { background: linear-gradient(135deg, rgba(205,127,50,0.1) 0%, rgba(205,127,50,0.02) 100%); border: 1px solid rgba(205,127,50,0.25); }
+  .tier-bronze::before { background: var(--bronze); }
+  .tier-bronze .tier-name { color: var(--bronze); }
+  .tier-silver { background: linear-gradient(135deg, rgba(168,168,168,0.1) 0%, rgba(168,168,168,0.02) 100%); border: 1px solid rgba(168,168,168,0.25); }
+  .tier-silver::before { background: var(--silver); }
+  .tier-silver .tier-name { color: var(--silver); }
+  .tier-gold { background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.02) 100%); border: 1px solid rgba(201,168,76,0.25); }
+  .tier-gold::before { background: var(--gold); }
+  .tier-gold .tier-name { color: var(--gold); }
+  .tier-platinum { background: linear-gradient(135deg, rgba(229,228,226,0.1) 0%, rgba(229,228,226,0.02) 100%); border: 1px solid rgba(229,228,226,0.25); }
+  .tier-platinum::before { background: var(--platinum); }
+  .tier-platinum .tier-name { color: var(--platinum); }
+
+  .tier-name {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .tier-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .cta-section {
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+  }
+
+  a.qr-block {
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  a.qr-block:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+
+  .qr-block img {
+    width: 130px; height: 130px;
+    border-radius: 8px;
+    border: 3px solid rgba(255,102,0,0.3);
+    padding: 5px;
+    background: white;
+  }
+
+  .qr-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-top: 10px;
+  }
+
+  .cta-text { text-align: left; }
+
+  .cta-text h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--white);
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+  }
+
+  .cta-text p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+  }
+
+  .cta-text a {
+    color: var(--orange);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  .footer {
+    background: var(--orange);
+    padding: 14px 40px;
+    text-align: center;
+  }
+
+  .footer p {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  /* === MOBILE === */
+  @media (max-width: 768px) {
+    body { padding: 0; }
+    .flyer { width: 100%; }
+    .hero-text { padding: 0 20px 20px; }
+    .hero-text .org-name { font-size: 11px; letter-spacing: 6px; }
+    .hero-text h1 { font-size: 56px; }
+    .hero-text .tagline { font-size: 10px; letter-spacing: 4px; }
+    .school-logo { width: 100px !important; top: 14px !important; left: 14px !important; }
+    a.qr-badge { top: 14px !important; right: 14px !important; padding: 10px 12px 8px !important; }
+    .qr-badge img { width: 75px !important; height: 75px !important; }
+    .qr-badge .qr-cta { font-size: 14px !important; }
+    .qr-badge .qr-sub { font-size: 7px !important; }
+    .event-info { grid-template-columns: 1fr; padding: 10px 20px 16px; }
+    .info-block { padding: 14px 10px; text-align: left; display: flex; align-items: baseline; gap: 12px; }
+    .info-block:not(:last-child)::after { display: none; }
+    .info-label { width: 70px; flex-shrink: 0; margin-bottom: 0; }
+    .info-value { font-size: 30px; }
+    .info-sub { margin-top: 0; margin-left: 8px; }
+    .divider { margin: 0 20px; }
+    .format-section { padding: 20px; }
+    .format-item { font-size: 11px; }
+    .pricing-section { padding: 20px; gap: 14px; }
+    .price-card { padding: 20px 30px; }
+    .price-amount { font-size: 44px; }
+    .sponsor-section { padding: 20px; }
+    .sponsor-section h3 { font-size: 28px; }
+    .sponsor-tiers { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .cta-section { flex-direction: column; padding: 20px; gap: 16px; }
+    .cta-text { text-align: center !important; }
+    .qr-block img { width: 110px !important; height: 110px !important; }
+    .footer { padding: 12px 20px; }
+    .footer p { font-size: 9px; letter-spacing: 2px; }
+  }
+
+  @media (max-width: 380px) {
+    .hero-text h1 { font-size: 44px; }
+    .school-logo { width: 80px !important; }
+    .qr-badge img { width: 60px !important; height: 60px !important; }
+    .qr-badge .qr-cta { font-size: 12px !important; }
+    .info-value { font-size: 24px; }
+    .price-card { padding: 16px 20px; }
+    .price-amount { font-size: 36px; }
+    .format-grid { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="flyer">
+  <div class="content">
+
+    <div class="hero-wrapper">
+      <img class="hero-image" src="{{ event.hero_image }}" alt="">
+      <div class="hero-overlay"></div>
+
+      <img class="school-logo" src="{{ event.logo_image }}" alt="{{ event.org_name }}">
+
+      <a href="{{ event.registration_url }}" target="_blank" class="qr-badge">
+        <img src="{{ event.qr_image }}" alt="Scan to Register">
+        <div class="qr-cta"><span>{{ event.qr_cta }}</span><br>Scan to Register</div>
+        <div class="qr-sub">{{ event.qr_sub }}</div>
+      </a>
+
+      <div class="hero-text">
+        <div class="org-name">{{ event.org_name }}</div>
+        <h1>{{ event.title | replace(" ", "<br>") | safe }}</h1>
+        <div class="tagline">{{ event.subtitle }}</div>
+      </div>
+    </div>
+
+    <div class="hero-accent"></div>
+
+    <div class="event-info">
+      <div class="info-block">
+        <div class="info-label">Date</div>
+        <div class="info-value">{{ event.date | replace(", 2026", "") }}</div>
+        <div class="info-sub">2026</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Time</div>
+        <div class="info-value">{{ event.time }}</div>
+        <div class="info-sub">{{ event.time_note }}</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Location</div>
+        <div class="info-value" style="font-size:28px;">{{ event.location }}</div>
+        <div class="info-sub">{{ event.location_note }}</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="format-section">
+      <h3>What's Included</h3>
+      <div class="format-grid">
+        {%- for item in event.included %}
+        <div class="format-item">{{ item }}</div>
+        {%- endfor %}
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="pricing-section">
+      <div class="price-card">
+        <div class="price-type">Teams</div>
+        <div class="price-amount">{{ event.team_price }}</div>
+        <div class="price-per">{{ event.team_note }}</div>
+      </div>
+      <div class="price-card">
+        <div class="price-type">Individuals</div>
+        <div class="price-amount">{{ event.individual_price }}</div>
+        <div class="price-per">{{ event.individual_note }}</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="sponsor-section">
+      <h3>Sponsorship Opportunities</h3>
+      <div class="sponsor-tiers">
+        {%- for tier in event.sponsorship %}
+        <div class="tier tier-{{ tier.name | lower }}">
+          <div class="tier-name">{{ tier.name }}</div>
+          <div class="tier-amount">{{ tier.amount }}</div>
+        </div>
+        {%- endfor %}
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <a href="{{ event.registration_url }}" target="_blank" class="qr-block">
+        <img src="{{ event.qr_image }}" alt="QR">
+        <div class="qr-label">Scan to Register</div>
+      </a>
+      <div class="cta-text">
+        <h4>Register & Sponsor Now</h4>
+        <p>Registration, sponsorship packages,<br>and merch available at:</p>
+        <a href="{{ event.registration_url }}">{{ event.registration_display }}</a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>{{ event.beneficiary }}</p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

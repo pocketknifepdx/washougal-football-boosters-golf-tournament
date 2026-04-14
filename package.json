@@ -1,0 +1,12 @@
+{
+  "name": "washougal-golf-tournament",
+  "version": "1.0.0",
+  "description": "Washougal Football Boosters Golf Tournament website with CMS",
+  "scripts": {
+    "build": "npx @11ty/eleventy",
+    "serve": "npx @11ty/eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

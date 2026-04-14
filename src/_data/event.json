@@ -1,0 +1,38 @@
+{
+  "title": "Golf Tournament",
+  "org_name": "Washougal Football Boosters",
+  "subtitle": "18-Hole Charity Scramble",
+  "beneficiary": "Benefiting Washougal Football Boosters & The Panther Foundation",
+  "date": "June 29, 2026",
+  "time": "1:00 PM",
+  "time_note": "Shotgun Start",
+  "location": "Orchard Hills",
+  "location_note": "Golf Club",
+  "team_price": "$600",
+  "team_note": "4 players",
+  "individual_price": "$175",
+  "individual_note": "per player",
+  "included": [
+    "18-Hole Scramble",
+    "Cart Included",
+    "Practice Balls",
+    "Lunch & BBQ",
+    "1st / 2nd / 3rd Prizes",
+    "Closest to Pin",
+    "Longest Drive",
+    "Raffle Prizes"
+  ],
+  "sponsorship": [
+    { "name": "Bronze", "amount": "$500" },
+    { "name": "Silver", "amount": "$1,000" },
+    { "name": "Gold", "amount": "$1,500" },
+    { "name": "Platinum", "amount": "$2,000" }
+  ],
+  "registration_url": "https://2026-golf-tournament-fundraiser.cheddarup.com",
+  "registration_display": "2026-golf-tournament-fundraiser.cheddarup.com",
+  "qr_cta": "Grab Your Spot.",
+  "qr_sub": "Teams • Individuals • Sponsors",
+  "hero_image": "/images/hero.jpg",
+  "logo_image": "/images/logo.png",
+  "qr_image": "/images/qr-code.jpg"
+}

@@ -1,0 +1,127 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/images"
+public_folder: "/images"
+
+collections:
+  - name: "settings"
+    label: "Event Settings"
+    files:
+      - name: "event"
+        label: "Golf Tournament"
+        file: "src/_data/event.json"
+        fields:
+          - label: "Event Title"
+            name: "title"
+            widget: "string"
+            default: "Golf Tournament"
+
+          - label: "Organization Name"
+            name: "org_name"
+            widget: "string"
+            default: "Washougal Football Boosters"
+
+          - label: "Subtitle"
+            name: "subtitle"
+            widget: "string"
+            default: "18-Hole Charity Scramble"
+
+          - label: "Beneficiary Line"
+            name: "beneficiary"
+            widget: "string"
+
+          - label: "Date"
+            name: "date"
+            widget: "string"
+            hint: "e.g. June 29, 2026"
+
+          - label: "Time"
+            name: "time"
+            widget: "string"
+            hint: "e.g. 1:00 PM"
+
+          - label: "Time Note"
+            name: "time_note"
+            widget: "string"
+            default: "Shotgun Start"
+
+          - label: "Location"
+            name: "location"
+            widget: "string"
+
+          - label: "Location Note"
+            name: "location_note"
+            widget: "string"
+            default: "Golf Club"
+
+          - label: "Team Price"
+            name: "team_price"
+            widget: "string"
+            hint: "e.g. $600"
+
+          - label: "Team Note"
+            name: "team_note"
+            widget: "string"
+            default: "4 players"
+
+          - label: "Individual Price"
+            name: "individual_price"
+            widget: "string"
+            hint: "e.g. $175"
+
+          - label: "Individual Note"
+            name: "individual_note"
+            widget: "string"
+            default: "per player"
+
+          - label: "What's Included"
+            name: "included"
+            widget: "list"
+            field:
+              label: "Item"
+              name: "item"
+              widget: "string"
+
+          - label: "Sponsorship Tiers"
+            name: "sponsorship"
+            widget: "list"
+            fields:
+              - label: "Tier Name"
+                name: "name"
+                widget: "string"
+                hint: "Bronze, Silver, Gold, or Platinum"
+              - label: "Amount"
+                name: "amount"
+                widget: "string"
+                hint: "e.g. $500"
+
+          - label: "Registration URL"
+            name: "registration_url"
+            widget: "string"
+
+          - label: "Registration Display Text"
+            name: "registration_display"
+            widget: "string"
+
+          - label: "QR Code CTA"
+            name: "qr_cta"
+            widget: "string"
+            default: "Grab Your Spot."
+
+          - label: "QR Code Sub Text"
+            name: "qr_sub"
+            widget: "string"
+
+          - label: "Hero Image"
+            name: "hero_image"
+            widget: "image"
+
+          - label: "Logo Image"
+            name: "logo_image"
+            widget: "image"
+
+          - label: "QR Code Image"
+            name: "qr_image"
+            widget: "image"
